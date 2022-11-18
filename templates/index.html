@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
-<title>{% block title %}Current Users{% endblock %}</title>
+<title>{% block title %}Current pets{% endblock %}</title>
 {% block content %}
 
 <div class="div row container">
     <div class=" div col-12 text-center">
-        <h1>Users</h1>
+        <h1>Pets</h1>
     </div>
 </div>
 
@@ -16,44 +16,28 @@
     {% endfor %}
 </div>
 
-{% for user in users%}
-<form action="/users/{{user.id}}/delete" method="post" name="form-{{user.id}}">
-    <div class="div row container text-center">
-        <div class="col">
-            <img src="{{user.image_url}}" alt="{{user.first_name}} {{user.last_name}}" width="35px">
-        </div>
-        <div class="col">
-            <a href="/users/{{user.id}}">
-                {{user.first_name}} {{user.last_name}}
-            </a>
-        </div>
-        <div class="col">
-            <a href="/users/{{user.id}}/edit"><button type="button" class="btn btn-success btn-sm m-1">Edit</button></a>
-        </div>
-        <div class="col">
-            <button class="btn btn-danger btn-sm m-1">Delete</button>
+<div class="div row container text-center">
+    {% for pet in pets%}
 
-        </div>
-    </div>
-</form>
-{% endfor %}
-<div class="div row container text-center">
     <div class="col">
-        <a href="/users/new"><button type="button" class="btn btn-warning btn-sm m-1">Add
-                User</button></a>
-        </ul>
+        <img src="{{pet.image_url}}" alt="{{pet.name}}" width="135px">
+        <br>
+        <a href="/pets/{{pet.id}}/edit">{{pet.name}}</a> is
+        {% if pet.available == True%}
+        <font color="green"> <b>AVAILABLE!</b></font>
+        {%else%}
+        unavailable.
+        {%endif%}
     </div>
+    {% endfor %}
+
 </div>
 <div class="div row container text-center">
     <div class="col">
-        <a href="/posts/all"><button type="button" class="btn btn-primary btn-sm m-1">View All Posts</button></a>
+        <a href="/pets/new"><button type="button" class="btn btn-warning btn-sm m-1">Add
+                pet</button></a>
         </ul>
     </div>
 </div>
-<div class="div row container text-center">
-    <div class="col">
-        <a href="/tags"><button type="button" class="btn btn-primary btn-sm m-1">View All Tags</button></a>
-        </ul>
-    </div>
-</div>
+
 {% endblock %}

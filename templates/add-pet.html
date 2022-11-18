@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+<title>{% block title %}Current pets{% endblock %}</title>
+{% block content %}
+
+<div class="div row container">
+    <div class=" div col-12 text-center">
+        <h1>Pets</h1>
+    </div>
+</div>
+
+<div class="div row container justify-content-center">
+    {% for msg in get_flashed_messages() %}
+    <div class="badge badge-pill badge-danger col-6" id="errMsg">
+        {{msg}}
+    </div>
+    {% endfor %}
+</div>
+
+<form id="add-form" method="POST">
+    {{ form.hidden_tag() }}
+    <!--add type=hidden form fields -->
+    {% for field in form
+    if field.widget.input_type != 'hidden' %}
+    <div class="row container">
+        <div class="col-6 text-end">
+            {{ field.label }}
+        </div>
+        <div class="col-6 text-start">
+            {{ field }}
+        </div>
+        {% for error in field.errors %}
+        {{ error }}
+        {% endfor %}
+    </div>
+    {% endfor %}
+    <div class="div row container text-center">
+        <div class="col">
+            <button type="submit" class="btn btn-warning btn-sm m-1">Add
+                New Pet</button>
+            </ul>
+        </div>
+    </div>
+</form>
+
+
+
+{% endblock %}
